@@ -1,17 +1,16 @@
-import sirv from 'sirv';
-import polka from 'polka';
-import compression from 'compression';
-import * as sapper from '@sapper/server';
+const sirv =require('sirv');
+const compression =require( 'compression');
+const sapper =require( '@sapper/server');
+const port=process.env.PORT||3000;
+const dev = 'development';
+const express = require('express');
+let app=express();
+const routes=require('./routes');
 
-const { PORT, NODE_ENV } = process.env;
-const dev = NODE_ENV === 'development';
-
-polka() // You can also use Express
-	.use(
-		compression({ threshold: 0 }),
-		sirv('static', { dev }),
-		sapper.middleware()
-	)
-	.listen(PORT, err => {
-		if (err) console.log('error', err);
-	});
+app.use(routes);
+app.use(compression({ threshold: 0 }));
+app.use(sirv('static', { dev }));
+app.use(sapper.middleware());
+app.listen(port, () => {
+    console.log(`Server started on port ${port} :)`);
+});

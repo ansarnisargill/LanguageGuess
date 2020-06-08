@@ -1,0 +1,3 @@
+Yes questions and answes are hardcoded with specific video links hardcoded.
+The questions are then randomly chosen and presented to the website visitor
+to try and answer.
